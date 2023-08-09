@@ -24,7 +24,7 @@ resources:
 #- argocd/namespace-spp.yaml
 #- argocd/namespace-spp-velero.yaml
 #- argocd/namespace-baas.yaml
-# - argocd/namespace-db2.yaml
+- argocd/namespace-db2.yaml
 #- argocd/namespace-mq.yaml
 #- argocd/namespace-b2bi-prod.yaml
 #- argocd/namespace-b2bi-nonprod.yaml
