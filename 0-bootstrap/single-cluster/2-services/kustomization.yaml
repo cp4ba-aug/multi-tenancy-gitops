@@ -25,7 +25,7 @@ resources:
 #- argocd/instances/ibm-process-mining-instance.yaml
 
 # IBM CP4BA & ODM Instance
-#- argocd/operators/ibm-cp4ba-db2.yaml
+- argocd/operators/ibm-cp4ba-db2.yaml
 #- argocd/instances/ibm-cp4ba-db2ucluster.yaml
 #- argocd/instances/ibm-cp4ba-db2u-setup.yaml 
 #- argocd/instances/ibm-cp4ba-openldap-odm.yaml
