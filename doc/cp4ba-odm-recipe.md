@@ -1,6 +1,15 @@
 # Deploy [Operational Decision Manager](https://www.ibm.com/products/operational-decision-manager)
 
-This recipe is for deploying the Operational Desision Manager in a single namespace. The typical size of the cluster is 5 worker nodes with 16CPU and 64GB RAM.  
+This recipe is for deploying the Operational Desision Manager in a single namespace. The typical size of the cluster is 5 worker nodes with 16 CPUs and 64 GB of RAM.
+## Update the below files for latest versions before running remaining instructions
+    - multi-tenancy-gitops-services/instances/ibm-cp4ba-icp4acluster/odm/odm-deploy.yaml 
+    > [release: 22.0.1, appVersion: 22.0.1, sc_block_storage_classname: ocs-storagecluster-ceph-rbd]
+    - multi-tenancy-gitops-services/operators/ibm-cp4ba-operator/deployment/cp4ba-subscription.yaml
+    > [channel: v22.1]
+    - multi-tenancy-gitops-services/instances/ibm-cp4ba-openldap-odm/deployment/ldap-statefulset.yaml
+    > [storageClassName: ocs-storagecluster-cephfs]
+    - multi-tenancy-gitops-services/operators/ibm-cp4ba-db2/db2/db2-subscription.yaml
+    > [channel: v110508.0]
 
 ### Infrastructure - Kustomization.yaml
 1. Edit the Infrastructure layer `${GITOPS_PROFILE}/1-infra/kustomization.yaml`, un-comment the following lines, commit and push the changes and refresh the `infra` Application in the ArgoCD console.
@@ -32,7 +41,7 @@ This recipe is for deploying the Operational Desision Manager in a single namesp
     | ODM | RWX | ibmc-file-gold-gid <br/> managed-nfs-storage | ocs-storagecluster-cephfs |
     | ODM | RWO | ibmc-block-gold <br/> managed-nfs-storage | ocs-storagecluster-ceph-rbd |
 
-    Changing the storage classes are performed in the following files:
+    Changing the storage classes is performed in the following files:
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-icp4acluster/odm/odm-deploy.yaml
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-db2ucluster/db2-instance/db2-instance.yaml
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-openldap-odm/deployment/ldap-statefulset.yaml
