@@ -1,6 +1,15 @@
 # Deploy [Operational Decision Manager](https://www.ibm.com/products/operational-decision-manager)
 
-This recipe is for deploying the Operational Desision Manager in a single namespace. The typical size of the cluster is 5 worker nodes with 16CPU and 64GB RAM.  
+This recipe is for deploying the Operational Desision Manager in a single namespace. The typical size of the cluster is 5 worker nodes with 16 CPUs and 64 GB of RAM.
+## Update the below files for latest versions before running remaining instructions
+    - multi-tenancy-gitops-services/instances/ibm-cp4ba-icp4acluster/odm/odm-deploy.yaml 
+    > [release: 22.0.1, appVersion: 22.0.1, sc_block_storage_classname: ocs-storagecluster-ceph-rbd]
+    - multi-tenancy-gitops-services/operators/ibm-cp4ba-operator/deployment/cp4ba-subscription.yaml
+    > [channel: v22.1]
+    - multi-tenancy-gitops-services/instances/ibm-cp4ba-openldap-odm/deployment/ldap-statefulset.yaml
+    > [storageClassName: ocs-storagecluster-cephfs]
+    - multi-tenancy-gitops-services/operators/ibm-cp4ba-db2/db2/db2-subscription.yaml
+    > [channel: v110508.0]
 
 ### Infrastructure - Kustomization.yaml
 1. Edit the Infrastructure layer `${GITOPS_PROFILE}/1-infra/kustomization.yaml`, un-comment the following lines, commit and push the changes and refresh the `infra` Application in the ArgoCD console.
@@ -32,7 +41,7 @@ This recipe is for deploying the Operational Desision Manager in a single namesp
     | ODM | RWX | ibmc-file-gold-gid <br/> managed-nfs-storage | ocs-storagecluster-cephfs |
     | ODM | RWO | ibmc-block-gold <br/> managed-nfs-storage | ocs-storagecluster-ceph-rbd |
 
-    Changing the storage classes are performed in the following files:
+    Changing the storage classes is performed in the following files:
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-icp4acluster/odm/odm-deploy.yaml
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-db2ucluster/db2-instance/db2-instance.yaml
     - multi-tenancy-gitops-services/instances/ibm-cp4ba-openldap-odm/deployment/ldap-statefulset.yaml
@@ -54,7 +63,7 @@ This recipe is for deploying the Operational Desision Manager in a single namesp
     >  💡 **NOTE**  
     >  ***You should see `5` changes, make sure to `add`, `commit` & `push` the changes into git.***
 
-1. Edit the Services layer `${GITOPS_PROFILE}/2-services/kustomization.yaml` and install db2 operator, db2 instance, openldap & CP4BA operator  by uncommenting the following lines: 
+1. Edit the Services layer `${GITOPS_PROFILE}/2-services/kustomization.yaml` and install the db2 operator, db2 instance, openldap & CP4BA operator  by uncommenting the following lines one by one as it shown below.
    
     ```yaml
     ## IBM DB2 operator & instance, Ldap
@@ -69,6 +78,33 @@ This recipe is for deploying the Operational Desision Manager in a single namesp
     ```
   >  💡 **NOTE**  
   > ***The overall process took around 2 hours***
+
+### Assign the Operational Decision Manager roles to the `cpadmin` user
+You will need to grant your users various access roles, depending on their needs. You manage permissions using the `Administration` -> `Access control page` in the `Cloud pak dashboard`.
+
+1. When the cloud pak is successfully installed, you should be able to login as the default admin user. In this case, the default admin user is `admin` and the `password` can be found in the `ibm-iam-bindinfo-platform-auth-idp-credentials` secret in the `cp4ba` namespace. 
+
+1. Click on the hamburger menu on the top left corner of the dashboard; expand the `Administration` section and click on `Access control`.
+
+1. Click on the User Groups tab, then click on `New user group`.
+
+1. Name the group `odmadmins`, and click `Next`.
+
+1. Click `Identity provider groups`, then type cpadmins in the search field. It should come back with one result: `cn=cpadmins,ou=Groups,dc=cp`. Select it and click `Next`. Click all of the `roles`:
+    ```
+    Administrator
+    Automation Administrator
+    Automation Analyst
+    Automation Developer
+    Automation Operator
+    ODM Administrator
+    ODM Business User
+    ODM Runtime administrator
+    ODM Runtime user
+    User
+    ```
+
+1. Click `Next`, then click `Create`.
 
 
 ### Validation
