@@ -34,7 +34,7 @@ resources:
 - argocd/instances/ibm-cp4ba-icp4acluster.yaml
 - argocd/instances/ibm-cp4ba-icp4acluster-postdeploy.yaml
 # IBM CP4BA & ODM Instance --ci-ns
-- argocd/operators/ibm-cp4ba-db2-ci.yaml
+# - argocd/operators/ibm-cp4ba-db2-ci.yaml
 # - argocd/instances/ibm-cp4ba-db2ucluster-ci.yaml
 # - argocd/instances/ibm-cp4ba-db2u-setup-ci.yaml 
 # - argocd/instances/ibm-cp4ba-openldap-odm-ci.yaml
