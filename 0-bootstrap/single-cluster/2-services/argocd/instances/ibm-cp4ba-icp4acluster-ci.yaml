@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ibm-cp4ba-icp4acluster-ci
+  name: ibm-cp4ba-icp4acluster
   annotations:
     argocd.argoproj.io/sync-wave: "280"
   labels:
@@ -12,11 +12,11 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: ci
+    namespace: cp4ba
     server: 'https://kubernetes.default.svc'
   project: services
   source:
-    path: instances/ibm-cp4ba-icp4acluster-ci
+    path: instances/ibm-cp4ba-icp4acluster
   syncPolicy:
     automated:
       prune: true

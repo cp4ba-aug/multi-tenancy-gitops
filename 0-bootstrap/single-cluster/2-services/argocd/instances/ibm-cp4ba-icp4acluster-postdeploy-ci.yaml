@@ -1,9 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ibm-cp4ba-icp4acluster-ci
+  name: ibm-cp4ba-icp4acluster-postdeploy-ci
   annotations:
-    argocd.argoproj.io/sync-wave: "280"
+    argocd.argoproj.io/sync-wave: "285"
   labels:
     gitops.tier.group: cp4ba
     gitops.tier.layer: services
@@ -16,8 +16,14 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: services
   source:
-    path: instances/ibm-cp4ba-icp4acluster-ci
+    path: instances/ibm-cp4ba-icp4acluster-postdeploy-ci
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+  ignoreDifferences:
+  - group: ""
+    kind: ServiceAccount
+    jsonPointers:
+    - /imagePullSecrets
+    - /secrets
