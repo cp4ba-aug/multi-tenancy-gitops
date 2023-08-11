@@ -22,7 +22,7 @@ resources:
 #- argocd/operators/ibm-cp4a-operator.yaml
 #- argocd/operators/ibm-db2u-operator.yaml
 #- argocd/operators/ibm-process-mining-operator.yaml
-- argocd/instances/ibm-process-mining-instance.yaml
+# - argocd/instances/ibm-process-mining-instance.yaml
 
 # IBM CP4BA & ODM Instance
 - argocd/operators/ibm-cp4ba-db2.yaml
