@@ -5,14 +5,14 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "280"
   labels:
-    gitops.tier.group: cp4ba
+    gitops.tier.group: ci
     gitops.tier.layer: services
     gitops.tier.source: git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: cp4ba
+    namespace: ci
     server: 'https://kubernetes.default.svc'
   project: services
   source:
