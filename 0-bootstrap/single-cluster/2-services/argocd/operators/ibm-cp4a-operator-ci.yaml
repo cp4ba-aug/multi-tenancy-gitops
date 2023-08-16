@@ -18,7 +18,7 @@ spec:
   source:
     repoURL: "" # Populated by kustomize patches in 2-services/kustomization.yaml
     targetRevision: "" # Populated by kustomize patches in 2-services/kustomization.yaml
-    path: operators/ibm-cp4a-operator-ci/overlays/v21.2
+    path: operators/ibm-cp4a-operator/overlays/v21.2
   syncPolicy:
     automated:
       prune: true
