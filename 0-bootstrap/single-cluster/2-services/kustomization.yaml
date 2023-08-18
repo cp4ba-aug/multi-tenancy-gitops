@@ -39,7 +39,7 @@ resources:
 # - argocd/instances/ibm-cp4ba-db2u-setup-ci.yaml 
 # - argocd/instances/ibm-cp4ba-openldap-odm-ci.yaml
 #- argocd/instances/ibm-cp4ba-baw.yaml
-- argocd/operators/ibm-cp4ba-operator-ci.yaml
+# - argocd/operators/ibm-cp4ba-operator-ci.yaml
 # - argocd/instances/ibm-cp4ba-icp4acluster-ci.yaml
 # - argocd/instances/ibm-cp4ba-icp4acluster-postdeploy-ci.yaml
 
